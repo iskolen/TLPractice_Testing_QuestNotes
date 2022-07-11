@@ -82,27 +82,16 @@ public class Main {
         select_time_apply.click();
 
 
-//        //Month selection
-//        WebElement month_selection = driver.findElement(By.xpath("//tl-control-date[@ng-model='dateTimeParams.date']"));
-//        month_selection.click();
-//        WebElement arrow_click = driver.findElement((By.xpath("//button[@ng-click='move(1)']")));
-//        arrow_click.click();
-//        WebElement day_selection = driver.findElement(By.xpath("//td[(@ng-repeat='dt in row track by dt.date') and (@id='datepicker-485-2097-29')]"));
-//        day_selection.click();
+        //Month selection
+        WebElement month_selection = driver.findElement(By.xpath("//tl-control-date[@ng-model='dateTimeParams.date']"));
+        month_selection.click();
+        WebElement arrow_click = driver.findElement((By.xpath("//button[@ng-click='move(1)']")));
+        arrow_click.click();
+        WebElement day_selection = driver.findElement(By.xpath("/html[1]/body[1]/div[3]/tl-extranet-host[1]/tl-popup[1]/div[2]/div[1]/div[1]/tl-window[1]/div[1]/tl-window-content[1]/div[1]/ng-form[1]/tl-form-item[3]/div[1]/tl-form-item-content[1]/tl-control-date[1]/div[1]/ul[1]/li[1]/div[1]/table[1]/tbody[1]/tr[4]/td[4]/button[1]"));
+        day_selection.click();
 
         WebElement ready = driver.findElement(By.xpath("//tl-button[@tl-click='ctrl.onEdited()']"));
         ready.click();
 
     }
 }
-
-
-//By.XPath
-//
-//<div class='main'>
-//     <p>text</p>
-//     <p>Another text</p>
-//</div>
-//Поиск элемента:
-//
-//WebElement element = driver.findElement(By.xpath("//div[@class='main']"));
