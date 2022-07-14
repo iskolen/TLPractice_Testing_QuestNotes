@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -41,374 +42,158 @@ public class NotesTest {
     }
 
     @Test
-    public void notesTestMaxChar_Performed() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
+    @DisplayName("The test checks for 3 cases where the status is 'Performed':" +
+                "1) Maximum number of characters" +
+                "2) A set of special characters" +
+                "3) Empty value")
+    public void notesTests_Performed() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_P();
-        notesPage.click_select_status();
+        notesPage.set_status_Performed();
         notesPage.click_note_ready();
-
-    }
-
-    @Test
-    public void notesTestSpecChar_Performed() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_P();
-        notesPage.click_select_status();
+        notesPage.set_status_Performed();
         notesPage.click_note_ready();
-
-    }
-
-    @Test
-    public void notesTestEmptyChar_Performed() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_P();
-        notesPage.click_select_status();
+        notesPage.set_status_Performed();
         notesPage.click_note_ready();
 
     }
 
     @Test
-    public void notesTestMaxChar_NoPlaned() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
+    @DisplayName("The test checks for 3 cases where the status is 'NoPlaned':" +
+                 "1) Maximum number of characters" +
+                 "2) A set of special characters" +
+                 "3) Empty value")
+    public void notesTests_NoPlaned() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.click_btn_add_notes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
+        notesPage.set_status_NoPlaned();
+        notesPage.click_note_ready();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_NP();
-        notesPage.click_select_status();
+        notesPage.set_status_NoPlaned();
         notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestSpecChar_NoPlaned() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
-
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_NP();
-        notesPage.click_select_status();
-        notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestEmptyChar_NoPlaned() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_NP();
-        notesPage.click_select_status();
+        notesPage.set_status_NoPlaned();
         notesPage.click_note_ready();
     }
 
     @Test
-    public void notesTestMaxChar_ReqExec_5Year() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
+    @DisplayName("The test checks for 4 cases where the status is 'RequiresExecution after 5 years':" +
+            "1) Maximum number of characters, time - 23:59" +
+            "2) A set of special characters,  time - 0:00" +
+            "3) Empty value,                  time - 0:00" +
+            "4) Empty value,                  time - 15:00")
+    public void notesTests_RequiresExecution_5years() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.click_btn_add_notes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest3"), ConfProperties.getProperty("minutesTest3"));
+        notesPage.set_date_5years();
+        notesPage.click_note_ready();
+
+        notesPage.click_btn_add_notes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
+        notesPage.set_date_5years();
+        notesPage.click_note_ready();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest1"));
-        notesPage.click_select_time_minutes();
-        notesPage.clear_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest1"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_btn_select_date();
-        notesPage.click_btn_select_date();
-        notesPage.click_btn_select_year();
-        notesPage.click_btn_select_month();
-        notesPage.click_day_selection_5Y();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest1"), ConfProperties.getProperty("minutesTest1"));
+        notesPage.set_date_5years();
         notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestSpecChar_ReqExec_5Year() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest2"));
-        notesPage.click_select_time_minutes();
-        notesPage.clear_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest2"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_btn_select_date();
-        notesPage.click_btn_select_date();
-        notesPage.click_btn_select_year();
-        notesPage.click_btn_select_month();
-        notesPage.click_day_selection_5Y();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
+        notesPage.set_date_5years();
         notesPage.click_note_ready();
     }
 
     @Test
-    public void notesTestEmptyChar1_ReqExec_5Year() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
-
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest2"));
-        notesPage.click_select_time_minutes();
-        notesPage.clear_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest2"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_btn_select_date();
-        notesPage.click_btn_select_date();
-        notesPage.click_btn_select_year();
-        notesPage.click_btn_select_month();
-        notesPage.click_day_selection_5Y();
-        notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestEmptyChar2_ReqExec_5Year() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
-
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest3"));
-        notesPage.click_select_time_minutes();
-        notesPage.clear_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest3"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_btn_select_date();
-        notesPage.click_btn_select_date();
-        notesPage.click_btn_select_year();
-        notesPage.click_btn_select_month();
-        notesPage.click_day_selection_5Y();
-        notesPage.click_note_ready();
-
-
-    }
-
-    @Test
-    public void notesTestMaxChar_ReqExec_NxMnt() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
+    @DisplayName("The test checks for 4 cases where the status is 'RequiresExecution after 5 years':" +
+            "1) Maximum number of characters, time - 0:00" +
+            "2) A set of special characters,  time - 0:00" +
+            "3) Empty value,                  time - 23:59")
+    public void notesTests_RequiresExecution_NextMonth() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.clear_minutes();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest3"));
-        notesPage.click_select_time_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest3"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_arrow();
-        notesPage.click_day_selection_NM();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
+        notesPage.set_date_NextMonth();
         notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestSpecChar_ReqExec_NxMnt() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.clear_minutes();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest2"));
-        notesPage.click_select_time_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest2"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_arrow();
-        notesPage.click_day_selection_NM();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
+        notesPage.set_date_NextMonth();
         notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestEmptyChar_ReqExec_NxMnt() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.clear_minutes();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest1"));
-        notesPage.click_select_time_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest1"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_arrow();
-        notesPage.click_day_selection_NM();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest1"), ConfProperties.getProperty("minutesTest1"));
+        notesPage.set_date_NextMonth();
         notesPage.click_note_ready();
     }
 
+
     @Test
-    public void notesTestMaxChar_ReqExec_Tomorrow() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
+    @DisplayName("The test checks for 4 cases where the status is 'RequiresExecution after 5 years':" +
+            "1) Maximum number of characters, time - 0:00" +
+            "2) A set of special characters,  time - 23:59" +
+            "3) A set of special characters,  time - 15:00" +
+            "4) Empty value,                  time - 15:00")
+    public void notesTests_RequiresExecution_Tomorrow() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.clear_minutes();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest2"));
-        notesPage.click_select_time_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest2"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_day_selection_T();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
+        notesPage.set_date_Tomorrow();
         notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestEmptyChar_ReqExec_Tomorrow() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.clear_minutes();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest3"));
-        notesPage.click_select_time_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest3"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_day_selection_T();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest3"), ConfProperties.getProperty("minutesTest3"));
+        notesPage.set_date_Tomorrow();
         notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestSpecChar1_ReqExec_Tomorrow() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.clear_minutes();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest3"));
-        notesPage.click_select_time_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest3"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_day_selection_T();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest3"), ConfProperties.getProperty("minutesTest3"));
+        notesPage.set_date_Tomorrow();
         notesPage.click_note_ready();
-    }
-
-    @Test
-    public void notesTestSpecChar2_ReqExec_Tomorrow() {
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        loginPage.inputPass(ConfProperties.getProperty("passwd"));
-        loginPage.clickLoginBtn();
 
         notesPage.click_btn_add_notes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.click_select_status();
-        notesPage.click_note_select_status_RE();
-        notesPage.click_select_status();
-        notesPage.click_select_time();
-        notesPage.click_select_time_hours();
-        notesPage.clear_hours();
-        notesPage.clear_minutes();
-        notesPage.inputHours(ConfProperties.getProperty("hoursTest1"));
-        notesPage.click_select_time_minutes();
-        notesPage.inputMinutes(ConfProperties.getProperty("minutesTest1"));
-        notesPage.click_select_time_apply();
-        notesPage.click_month_selection();
-        notesPage.click_day_selection_T();
+        notesPage.set_status_RequiresExecution();
+        notesPage.set_time(ConfProperties.getProperty("hoursTest1"), ConfProperties.getProperty("minutesTest1"));
+        notesPage.set_date_Tomorrow();
         notesPage.click_note_ready();
     }
 }

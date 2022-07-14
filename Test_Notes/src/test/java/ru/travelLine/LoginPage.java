@@ -10,7 +10,9 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver; }
+        this.driver = driver;
+    }
+
     @FindBy(css = "input[class='pull-right tl-control-full form-control tl-control']")
     private WebElement loginField;
     @FindBy(css = "input[name='password']")
@@ -19,11 +21,8 @@ public class LoginPage {
     private WebElement loginBtn;
 
 
-    public void inputLogin(String login) {
-        loginField.sendKeys(login); }
-
-    public void inputPass(String passwd) {
-        passwdField.sendKeys(passwd); }
-
-    public void clickLoginBtn() {
-        loginBtn.click(); } }
+    public void authorization(String login, String password) {
+        loginField.sendKeys(login);
+        passwdField.sendKeys(password);
+        loginBtn.click();}
+}
