@@ -31,6 +31,13 @@ public class NotesTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //получение ссылки на страницу входа из файла настроек
         driver.get(ConfProperties.getProperty("loginpage"));
+
+    }
+
+    @After
+    public void tearDown() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(1);
+        driver.quit();
     }
 
     @Test
