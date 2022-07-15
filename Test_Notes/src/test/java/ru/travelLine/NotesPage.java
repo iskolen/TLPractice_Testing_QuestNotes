@@ -1,9 +1,11 @@
 package ru.travelLine;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class NotesPage {
     public WebDriver driver;
@@ -11,85 +13,117 @@ public class NotesPage {
         PageFactory.initElements(driver, this);
         this.driver = driver; }
     @FindBy(xpath = "//tl-button[@tl-click='addNote()']")
-    private WebElement btn_add_notes;
+    private WebElement btnAddNotes;
     @FindBy(name = "noteText")
-    private WebElement text_area;
+    private WebElement textArea;
     @FindBy(xpath = "//select[@ng-model='status']")
-    private WebElement select_status;
+    private WebElement selectStatus;
     @FindBy(xpath = "//option[@label='Требует выполнения']")
-    private WebElement note_select_status_RequiresExecution;
+    private WebElement noteSelectStatusRequiresExecution;
     @FindBy(xpath = "//option[@label='Не запланировано']")
-    private WebElement note_select_status_NoPlaned;
+    private WebElement noteSelectStatusNoPlaned;
     @FindBy(xpath = "//option[@label='Выполнено']")
-    private WebElement note_select_status_Performed;
+    private WebElement noteSelectStatusPerformed;
     @FindBy(xpath = "//tl-control-time[@ng-model='dateTimeParams.time']")
-    private WebElement select_time;
+    private WebElement selectTime;
     @FindBy(xpath = "//input[@ng-model='modelViewValue.string.hours']")
-    private WebElement select_time_hours;
+    private WebElement selectTimeHours;
     @FindBy(xpath = "//input[@ng-disabled='lockMinutes']")
-    private WebElement select_time_minutes;
+    private WebElement selectTimeMinutes;
     @FindBy(xpath = "//tl-button[@tl-click='saveDate()']")
-    private WebElement select_time_apply;
+    private WebElement selectTimeApply;
     @FindBy(xpath = "//tl-control-date[@ng-model='dateTimeParams.date']")
-    private WebElement month_selection;
+    private WebElement monthSelection;
     @FindBy(xpath = "//button[@ng-click='move(1)']")
-    private WebElement arrow_btn;
+    private WebElement arrowBtn;
     @FindBy(xpath = "//span[normalize-space()='13']")
-    private WebElement day_selection_5years;
+    private WebElement daySelectionFiveYears;
     @FindBy(xpath = "//span[normalize-space()='16']")
-    private WebElement day_selection_NextMonth;
+    private WebElement daySelectionNextMonth;
     @FindBy(xpath = "//span[normalize-space()='16']")
-    private WebElement day_selection_Tomorrow;
+    private WebElement daySelectionTomorrow;
     @FindBy(xpath = "//tl-button[@tl-click='ctrl.onEdited()']")
-    private WebElement note_ready;
+    private WebElement noteReady;
     @FindBy(xpath = "//strong[@class='ng-binding']")
-    private WebElement btn_select_date;
+    private WebElement btnSelectDate;
     @FindBy(xpath = "//span[contains(text(),'Июль')]")
-    private WebElement btn_select_month;
+    private WebElement btnSelectMonth;
     @FindBy(xpath = "//span[normalize-space()='2027']")
-    private WebElement btn_select_year;
+    private WebElement btnSelectYear;
+    @FindBy(xpath = "//textarea[@name='noteText']")
+    private WebElement textAreaExam;
+
+    @FindBy(xpath = "//select[@class='tl-control-md form-control tl-control ng-valid ng-touched']")
+    private WebElement status;
+
+
+
+
+
+
 
 
     public void inputNoteText(String noteText) {
-        text_area.sendKeys(noteText);}
-    public void click_btn_add_notes() {
-        btn_add_notes.click();}
-    public void click_note_ready(){
-        note_ready.click();}
-    public void set_status_RequiresExecution(){
-        select_status.click();
-        note_select_status_RequiresExecution.click();
-        select_status.click();}
-    public void set_status_NoPlaned(){
-        select_status.click();
-        note_select_status_NoPlaned.click();
-        select_status.click();}
-    public void set_status_Performed(){
-        select_status.click();
-        note_select_status_Performed.click();
-        select_status.click();}
-    public void set_date_5years(){
-        month_selection.click();
-        btn_select_date.click();
-        btn_select_date.click();
-        btn_select_year.click();
-        btn_select_month.click();
-        day_selection_5years.click();}
-    public void set_date_NextMonth(){
-        month_selection.click();
-        arrow_btn.click();
-        day_selection_NextMonth.click();}
-    public void set_date_Tomorrow(){
-        month_selection.click();
-        day_selection_Tomorrow.click();}
-    public void set_time(String hours, String minutes){
-        select_time.click();
-        select_time_hours.clear();
-        select_time_hours.click();
-        select_time_hours.sendKeys(hours);
-        select_time_minutes.clear();
-        select_time_minutes.click();
-        select_time_minutes.sendKeys(minutes);
-        select_time_apply.click();}
+        textArea.sendKeys(noteText);}
+    public void clickBtnAddNotes() {
+        btnAddNotes.click();}
+    public void clickNoteReady(){
+        noteReady.click();}
+    public void setStatusRequiresExecution(){
+        selectStatus.click();
+        noteSelectStatusRequiresExecution.click();
+        selectStatus.click();}
+    public void setStatusNoPlaned(){
+        selectStatus.click();
+        noteSelectStatusNoPlaned.click();
+        selectStatus.click();}
+    public void setStatusPerformed(){
+        selectStatus.click();
+        noteSelectStatusPerformed.click();
+        selectStatus.click();}
+    public void setDateFiveYears(){
+        monthSelection.click();
+        btnSelectDate.click();
+        btnSelectDate.click();
+        btnSelectYear.click();
+        btnSelectMonth.click();
+        daySelectionFiveYears.click();}
+    public void setDateNextMonth(){
+        monthSelection.click();
+        arrowBtn.click();
+        daySelectionNextMonth.click();}
+    public void setDateTomorrow(){
+        monthSelection.click();
+        daySelectionTomorrow.click();}
+    public void setTime(String hours, String minutes){
+        selectTime.click();
+        selectTimeHours.clear();
+        selectTimeHours.click();
+        selectTimeHours.sendKeys(hours);
+        selectTimeMinutes.clear();
+        selectTimeMinutes.click();
+        selectTimeMinutes.sendKeys(minutes);
+        selectTimeApply.click();}
+    public String getText() {
+        String textExam = textAreaExam.getAttribute("value");
+        return textExam;}
+    public String getHours(){
+        selectTime.click();
+        String hoursExam = selectTimeHours.getAttribute("value");
+        selectTime.click();
+        return hoursExam;}
+    public String getMinutes(){
+        selectTime.click();
+        String minutesExam = selectTimeMinutes.getAttribute("value");
+        selectTime.click();
+        return minutesExam;}
+
+    public String getStatus(){
+        Select selectStatus = new Select(driver.findElement(By.xpath("//select[@ng-model='status']")));
+        WebElement optionStatus = selectStatus.getFirstSelectedOption();
+        String nowStatus = optionStatus.getText();
+        return nowStatus;
+    }
+
 }
 

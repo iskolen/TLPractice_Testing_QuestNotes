@@ -1,9 +1,6 @@
 package ru.travelLine;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -42,158 +39,411 @@ public class NotesTest {
     }
 
     @Test
-    @DisplayName("The test checks for 3 cases where the status is 'Performed':" +
-                "1) Maximum number of characters" +
-                "2) A set of special characters" +
-                "3) Empty value")
-    public void notesTests_Performed() {
+    @DisplayName("This test checks the case when the status is 'Performed'" +
+                 "and the note text is 'Maximum character value'")
+    public void notesTestsPerformedMax() {
         loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
-        notesPage.click_btn_add_notes();
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.set_status_Performed();
-        notesPage.click_note_ready();
+        notesPage.setStatusPerformed();
+        String textExam = notesPage.getText();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextMaxChar"), textExam);
+        Assert.assertEquals("Выполнено", statusExam);
+        System.out.println(textExam);
+        System.out.println(statusExam);
+    }
 
-        notesPage.click_btn_add_notes();
+    @Test
+    @DisplayName("This test checks the case when the status is 'Performed'" +
+                 "and the note text is 'Special characters'")
+    public void notesTestsPerformedSpec() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.set_status_Performed();
-        notesPage.click_note_ready();
-
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.set_status_Performed();
-        notesPage.click_note_ready();
+        notesPage.setStatusPerformed();
+        String textExam = notesPage.getText();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextSpecChar"), textExam);
+        Assert.assertEquals("Выполнено", statusExam);
+        System.out.println(textExam);
+        System.out.println(statusExam);
 
     }
 
     @Test
-    @DisplayName("The test checks for 3 cases where the status is 'NoPlaned':" +
-                 "1) Maximum number of characters" +
-                 "2) A set of special characters" +
-                 "3) Empty value")
-    public void notesTests_NoPlaned() {
+    @DisplayName("This test checks the case when the status is 'Performed'" +
+                 "and the note text is 'Empty value'")
+    public void notesTestsPerformedEmpty() {
         loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.set_status_NoPlaned();
-        notesPage.click_note_ready();
-
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.set_status_NoPlaned();
-        notesPage.click_note_ready();
-
-        notesPage.click_btn_add_notes();
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.set_status_NoPlaned();
-        notesPage.click_note_ready();
+        notesPage.setStatusPerformed();
+        String textExam = notesPage.getText();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextEmptyChar"), textExam);
+        Assert.assertEquals("Выполнено", statusExam);
+        System.out.println(textExam);
+        System.out.println(statusExam);
+
     }
 
     @Test
-    @DisplayName("The test checks for 4 cases where the status is 'RequiresExecution after 5 years':" +
-            "1) Maximum number of characters, time - 23:59" +
-            "2) A set of special characters,  time - 0:00" +
-            "3) Empty value,                  time - 0:00" +
-            "4) Empty value,                  time - 15:00")
-    public void notesTests_RequiresExecution_5years() {
+    @DisplayName("This test checks the case when the status is 'NoPlaned'" +
+                 "and the note text is 'Special characters'")
+    public void notesTestsNoPlanedSpec() {
         loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest3"), ConfProperties.getProperty("minutesTest3"));
-        notesPage.set_date_5years();
-        notesPage.click_note_ready();
-
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
-        notesPage.set_date_5years();
-        notesPage.click_note_ready();
-
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest1"), ConfProperties.getProperty("minutesTest1"));
-        notesPage.set_date_5years();
-        notesPage.click_note_ready();
-
-        notesPage.click_btn_add_notes();
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
-        notesPage.set_date_5years();
-        notesPage.click_note_ready();
+        notesPage.setStatusNoPlaned();
+        String textExam = notesPage.getText();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextSpecChar"), textExam);
+        Assert.assertEquals("Не запланировано", statusExam);
+        System.out.println(textExam);
+        System.out.println(statusExam);
     }
 
     @Test
-    @DisplayName("The test checks for 4 cases where the status is 'RequiresExecution after 5 years':" +
-            "1) Maximum number of characters, time - 0:00" +
-            "2) A set of special characters,  time - 0:00" +
-            "3) Empty value,                  time - 23:59")
-    public void notesTests_RequiresExecution_NextMonth() {
+    @DisplayName("This test checks the case when the status is 'NoPlaned'" +
+                 "and the note text is 'Maximum character value'")
+    public void notesTestsNoPlanedMax() {
         loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
-        notesPage.click_btn_add_notes();
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
-        notesPage.set_date_NextMonth();
-        notesPage.click_note_ready();
+        notesPage.setStatusNoPlaned();
+        String textExam = notesPage.getText();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextMaxChar"), textExam);
+        Assert.assertEquals("Не запланировано", statusExam);
+        System.out.println(textExam);
+        System.out.println(statusExam);
+    }
 
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
-        notesPage.set_date_NextMonth();
-        notesPage.click_note_ready();
+    @Test
+    @DisplayName("This test checks the case when the status is 'NoPlaned'" +
+                 "and the note text is 'Empty value'")
+    public void notesTestsNoPlanedEmpty() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
-        notesPage.click_btn_add_notes();
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest1"), ConfProperties.getProperty("minutesTest1"));
-        notesPage.set_date_NextMonth();
-        notesPage.click_note_ready();
+        notesPage.setStatusNoPlaned();
+        String textExam = notesPage.getText();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextEmptyChar"), textExam);
+        Assert.assertEquals("Не запланировано", statusExam);
+        System.out.println(textExam);
+        System.out.println(statusExam);
+    }
+
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' after 5 years" +
+                 "and the note text is 'Empty value'" +
+                 "and the note time is '15:00'")
+    public void notesTestsRequiresExecutionFiveYearsEmptyOne() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestThree"), ConfProperties.getProperty("minutesTestThree"));
+        notesPage.setDateFiveYears();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextEmptyChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestThree"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestThree"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+
+    }
+
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' after 5 years" +
+                 "and the note text is 'Empty value'" +
+                 "and the note time is '0:00'")
+    public void notesTestsRequiresExecutionFiveYearsEmptyTwo() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestTwo"), ConfProperties.getProperty("minutesTestTwo"));
+        notesPage.setDateFiveYears();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextEmptyChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestTwo"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestTwo"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+    }
+
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' after 5 years" +
+                 "and the note text is 'Maximum character value'" +
+                 "and the note time is '23:59'")
+    public void notesTestsRequiresExecutionFiveYearsMax() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestOne"), ConfProperties.getProperty("minutesTestOne"));
+        notesPage.setDateFiveYears();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextMaxChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestOne"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestOne"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+    }
+
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' after 5 years" +
+                 "and the note text is 'Special characters'" +
+                 "and the note time is '0:00'")
+    public void notesTestsRequiresExecutionFiveYearsSpec() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestTwo"), ConfProperties.getProperty("minutesTestTwo"));
+        notesPage.setDateFiveYears();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextSpecChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestTwo"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestTwo"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+    }
+
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' after month" +
+                 "and the note text is 'Maximum character value'" +
+                 "and the note time is '15:00'")
+    public void notesTestsRequiresExecutionNextMonthMax() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestThree"), ConfProperties.getProperty("minutesTestThree"));
+        notesPage.setDateNextMonth();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextMaxChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestThree"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestThree"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+    }
+
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' after month" +
+                 "and the note text is 'Special characters'" +
+                 "and the note time is '0:00'")
+    public void notesTestsRequiresExecutionNextMonthSpec() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestTwo"), ConfProperties.getProperty("minutesTestTwo"));
+        notesPage.setDateNextMonth();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextSpecChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestTwo"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestTwo"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+    }
+
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' after month" +
+                 "and the note text is 'Empty value'" +
+                 "and the note time is '23:59'")
+    public void notesTestsRequiresExecutionNextMonthEmpty() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestOne"), ConfProperties.getProperty("minutesTestOne"));
+        notesPage.setDateNextMonth();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextEmptyChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestOne"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestOne"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
     }
 
 
     @Test
-    @DisplayName("The test checks for 4 cases where the status is 'RequiresExecution after 5 years':" +
-            "1) Maximum number of characters, time - 0:00" +
-            "2) A set of special characters,  time - 23:59" +
-            "3) A set of special characters,  time - 15:00" +
-            "4) Empty value,                  time - 15:00")
-    public void notesTests_RequiresExecution_Tomorrow() {
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' tomorrow" +
+                 "and the note text is 'Maximum character value'" +
+                 "and the note time is '0:00'")
+    public void notesTestsRequiresExecutionTomorrowMax() {
         loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
-        notesPage.click_btn_add_notes();
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextMaxChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest2"), ConfProperties.getProperty("minutesTest2"));
-        notesPage.set_date_Tomorrow();
-        notesPage.click_note_ready();
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestTwo"), ConfProperties.getProperty("minutesTestTwo"));
+        notesPage.setDateTomorrow();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextMaxChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestTwo"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestTwo"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+    }
 
-        notesPage.click_btn_add_notes();
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' tomorrow" +
+                 "and the note text is 'Empty value'" +
+                 "and the note time is '15:00'")
+    public void notesTestsRequiresExecutionTomorrowEmpty() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextEmptyChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest3"), ConfProperties.getProperty("minutesTest3"));
-        notesPage.set_date_Tomorrow();
-        notesPage.click_note_ready();
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestThree"), ConfProperties.getProperty("minutesTestThree"));
+        notesPage.setDateTomorrow();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextEmptyChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestThree"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestThree"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+    }
 
-        notesPage.click_btn_add_notes();
-        notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest3"), ConfProperties.getProperty("minutesTest3"));
-        notesPage.set_date_Tomorrow();
-        notesPage.click_note_ready();
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' tomorrow" +
+                 "and the note text is 'Special characters'" +
+                 "and the note time is '15:00'")
+    public void notesTestsRequiresExecutionTomorrowSpecOne() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
 
-        notesPage.click_btn_add_notes();
+        notesPage.clickBtnAddNotes();
         notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
-        notesPage.set_status_RequiresExecution();
-        notesPage.set_time(ConfProperties.getProperty("hoursTest1"), ConfProperties.getProperty("minutesTest1"));
-        notesPage.set_date_Tomorrow();
-        notesPage.click_note_ready();
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestThree"), ConfProperties.getProperty("minutesTestThree"));
+        notesPage.setDateTomorrow();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextSpecChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestThree"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestThree"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
+    }
+
+    @Test
+    @DisplayName("This test checks the case when the status is 'RequiresExecution' tomorrow" +
+                 "and the note text is 'Special characters'" +
+                 "and the note time is '23:59'")
+    public void notesTestsRequiresExecutionTomorrowSpecTwo() {
+        loginPage.authorization(ConfProperties.getProperty("login"), ConfProperties.getProperty("password"));
+
+        notesPage.clickBtnAddNotes();
+        notesPage.inputNoteText(ConfProperties.getProperty("noteTextSpecChar"));
+        notesPage.setStatusRequiresExecution();
+        notesPage.setTime(ConfProperties.getProperty("hoursTestOne"), ConfProperties.getProperty("minutesTestOne"));
+        notesPage.setDateTomorrow();
+        String textExam = notesPage.getText();
+        String hoursExam = notesPage.getHours();
+        String minutesExam = notesPage.getMinutes();
+        String statusExam = notesPage.getStatus();
+        notesPage.clickNoteReady();
+        Assert.assertEquals(ConfProperties.getProperty("noteTextSpecChar"), textExam);
+        Assert.assertEquals(ConfProperties.getProperty("hoursTestOne"), hoursExam);
+        Assert.assertEquals(ConfProperties.getProperty("minutesTestOne"), minutesExam);
+        Assert.assertEquals("Требует выполнения", statusExam);
+        System.out.println(textExam);
+        System.out.println(hoursExam);
+        System.out.println(minutesExam);
+        System.out.println(statusExam);
     }
 }
