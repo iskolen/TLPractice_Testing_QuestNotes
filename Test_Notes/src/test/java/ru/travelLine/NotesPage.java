@@ -53,8 +53,6 @@ public class NotesPage {
     @FindBy(xpath = "//textarea[@name='noteText']")
     private WebElement textAreaExam;
 
-    @FindBy(xpath = "//select[@class='tl-control-md form-control tl-control ng-valid ng-touched']")
-    private WebElement status;
 
 
 
@@ -117,13 +115,11 @@ public class NotesPage {
         String minutesExam = selectTimeMinutes.getAttribute("value");
         selectTime.click();
         return minutesExam;}
-
     public String getStatus(){
         Select selectStatus = new Select(driver.findElement(By.xpath("//select[@ng-model='status']")));
         WebElement optionStatus = selectStatus.getFirstSelectedOption();
         String nowStatus = optionStatus.getText();
-        return nowStatus;
-    }
+        return nowStatus;}
 
 }
 
